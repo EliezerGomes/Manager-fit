@@ -1,52 +1,72 @@
-import { FaUsers } from "react-icons/fa";
-import { MdAdminPanelSettings } from "react-icons/md";
+import { FaRegUser } from "react-icons/fa";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { BsGraphUp } from "react-icons/bs";
 import { IoIosFitness } from "react-icons/io";
-import { FaMoneyCheckDollar } from "react-icons/fa6";
+import { FaRegCreditCard } from "react-icons/fa6";
+import { TbFileReport } from "react-icons/tb";
 
-function SideBar() {
+interface Properties {
+  path: string;
+  setPath: (val: string) => void;
+}
+
+function SideBar({ path, setPath }: Properties) {
   const options = [
     {
-      name: "users",
+      name: "Users",
       label: "Usuários",
-      icon: <FaUsers className="text-3xl text-primary" />,
+      icon: FaRegUser,
     },
     {
-      name: "payments",
-      label: "Assinaturas e pagamentos",
-      icon: <FaMoneyCheckDollar className="text-3xl text-primary" />,
+      name: "Payments",
+      label: "Assinaturas",
+      icon: FaRegCreditCard,
     },
     {
-      name: "workouts",
+      name: "Workouts",
       label: "Aulas",
-      icon: <IoIosFitness className="text-3xl text-primary" />,
+      icon: IoIosFitness,
     },
     {
-      name: "performance",
+      name: "Performance",
       label: "Performance",
-      icon: <BsGraphUp className="text-2xl text-primary" />,
+      icon: BsGraphUp,
     },
     {
-      name: "reports",
-      label: "Relatórios e a análises",
-      icon: <FaUsers className="text-3xl text-primary" />,
+      name: "Reports",
+      label: "Relatórios",
+      icon: TbFileReport,
     },
     {
-      name: "access",
+      name: "Access",
       label: "Controle de acesso",
-      icon: <MdAdminPanelSettings className="text-3xl text-primary" />,
+      icon: MdOutlineAdminPanelSettings,
     },
   ];
-  return (
 
-      <div className="flex flex-col gap-5 w-90 p-5 ">
-        {options.map((item, idx) => (
-          <div key={idx} className="flex flex-row items-center gap-3 cursor-pointer">
-            {item.icon}
-            <p className="font-semibold text-primary">{item.label}</p>
+  function getActiveClasses(isActive: boolean) {
+    return isActive ? "bg-primary text-white" : "text-primary";
+  }
+  return (
+    <div className="flex flex-col gap-2 w-70 py-5 px-1">
+      {options.map((item, idx) => {
+        const isActive = path === item.name;
+        const itemClasses = `${getActiveClasses(
+          isActive
+        )} flex flex-row items-center gap-3  cursor-pointer px-5 py-3 rounded-l-full font-semibold`;
+
+        return (
+          <div
+            key={idx}
+            className={itemClasses}
+            onClick={() => setPath(item.name)}
+          >
+            <item.icon className={`text-2xl ${getActiveClasses(isActive)}`} />
+            <p className={getActiveClasses(isActive)}>{item.label}</p>
           </div>
-        ))}
-      </div>
+        );
+      })}
+    </div>
   );
 }
 
