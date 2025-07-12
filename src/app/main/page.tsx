@@ -8,6 +8,7 @@ import Users from "@/app/main/users/page";
 import Performance from "@/app/main/performance/page";
 import Reports from "@/app/main/reports/page";
 import Workouts from "@/app/main/workouts/page";
+import { AddUser } from "@/app/main/users/addUser/page";
 import Access from "@/app/main/access/page";
 import { JSX, useState } from "react";
 
@@ -16,6 +17,7 @@ function Main() {
   const render: Record<string, JSX.Element> = {
     Payments: <Payments />,
     Users: <Users />,
+    AddUser: <AddUser/>,
     Performance: <Performance />,
     Workouts: <Workouts />,
     Reports: <Reports />,
@@ -28,7 +30,7 @@ function Main() {
       <div className="flex flex-1 flex-row ">
         <SideBar path={path} setPath={setPath} />
 
-        <div className="bg-gray-100 flex-1">
+        <div className="bg-gray-50 flex-1">
           { render[path] }
         </div>
       </div>
